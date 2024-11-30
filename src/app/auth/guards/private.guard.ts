@@ -3,7 +3,7 @@ import { AuthService } from '../services/auth.service';
 import { inject } from '@angular/core';
 import { AuthStatus } from '../interfaces';
 
-export const isAuthenticatedGuard: CanActivateFn = (route, state) => {
+export const PrivateGuard: CanActivateFn = (route, state) => {
   // console.log('isAuthenticatedGuard');
   // console.log({ route, state });
 
@@ -17,6 +17,6 @@ export const isAuthenticatedGuard: CanActivateFn = (route, state) => {
   if (authService.authStatus() === AuthStatus.authenticated) {
     return true;
   }
-  router.navigateByUrl('login');
+  router.navigateByUrl('/auth/login');
   return false;
 };

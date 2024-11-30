@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { isAuthenticatedGuard } from './auth/guards/is-authenticated.guard';
+import { PublicGuard, PrivateGuard } from './auth/guards';
 
 const routes: Routes = [
   {
     path: 'auth',
+    canActivate: [PublicGuard],
     loadChildren: () =>
       import('./auth/auth.module').then((module) => module.AuthModule),
   },
   {
     path: 'dashboard',
-    canActivate: [isAuthenticatedGuard],
+    canActivate: [PrivateGuard],
     loadChildren: () =>
       import('./dashboard/dashboard.module').then(
         (module) => module.DashboardModule
