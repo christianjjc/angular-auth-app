@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import Swal from 'sweetalert2';
 
@@ -12,6 +13,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './login-page.component.css',
 })
 export class LoginPageComponent {
+  private router = inject(Router);
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
 
@@ -23,7 +25,7 @@ export class LoginPageComponent {
   login() {
     const { email, password } = this.myForm.value;
     this.authService.login(email, password).subscribe({
-      next: () => console.log('todo bien'),
+      next: () => this.router.navigateByUrl('/dashboard'),
       error: (message) => {
         Swal.fire('Error', message, 'error');
       },
